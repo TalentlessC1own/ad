@@ -5,14 +5,7 @@
 #include <clocale>
 
 
-bool isNumeric(std::string const& str)
-{
-    auto it = str.begin();
-    while (it != str.end() && std::isdigit(*it)) {
-        it++;
-    }
-    return !str.empty() && it == str.end();
-}
+
 
 int main() {
     SetConsoleCP(1251);
@@ -59,15 +52,26 @@ int main() {
 
         if (userChoice == 1)  // ввод данных вручную
         {
-            cout << "Введите количество книг" << endl;
-            cin >> Size;
-            if (Size == 0)
+            while (true)
             {
-                cin.clear();
-                cin.ignore(256, '\n');
-                cout << "\nНекорректное значение =(" << endl <<"Попробуй ещё раз!\n" << endl;
-                cout << "Введите количество книг" << endl;
-                cin >> Size;
+                std::cout << "Введите количествл книг " << std::endl;
+                getline(cin, inputValue);
+                if (!(isNumeric(inputValue)))
+                {
+
+                    cout << "Введено не число...Попробуй ещё раз!" << endl;
+                    continue;
+                }
+                else
+                {
+                    Size = stoi(inputValue);
+                    if (Size < 1)
+                    {
+                        continue;
+                    }
+                    break;
+                }
+
             }
         }
         if (userChoice == 2)
@@ -88,8 +92,30 @@ int main() {
 
                 }
             }
-            cout << "Введите количество книг" << endl;
-            cin >> Size;
+            cin.clear();
+            cin.ignore();
+            while (true)
+            {
+                std::cout << "Введите количествл книг " << std::endl;
+                getline(cin, inputValue);
+                if (!(isNumeric(inputValue)))
+                {
+
+                    cout << "Введено не число...Попробуй ещё раз!" << endl;
+                    continue;
+                }
+                else
+                {
+                    Size = stoi(inputValue);
+                    if (Size < 1)
+                    {
+                        continue;
+                    }
+                    break;
+                }
+
+            }
+           
             /*while (!file.eof()) {
                  getline(file, str, '\n');
                  i++;
@@ -109,7 +135,7 @@ int main() {
             for (int i = 0; i < Size; i++) {
                 string bookname, name, lastName, patronymic, publishingoffice;
                 int yearOfIssue = 0;
-                cin.get();  //о помогло
+       
                 cout << "Введите название книги" << endl;
                 getline(cin, bookname);
 
@@ -156,8 +182,21 @@ int main() {
             cout << "1 - Сохранить данные, заданные пользователем в новый файл. " << endl;
             cout << "2 - Сохранить данные, заданные пользователем в существующий файл." << endl;
             cout << "3 и любые другие цифры - Данные,заданные пользователем не сохранятся" << endl;
-            if (!(cin >> input2InInput)) {
-                cout << ("НЕКОРЕКТНО") << endl;
+            while (true)
+            {
+                getline(cin, inputValue);
+                if (!(isNumeric(inputValue)))
+                {
+
+                    cout << "Введено не число...Попробуй ещё раз!" << endl;
+                    continue;
+                }
+                else
+                {
+                    input2InInput = stoi(inputValue);
+                    break;
+                }
+
             }
            //cin >> input2InInput;
             if (input2InInput == 2) {

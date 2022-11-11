@@ -1,22 +1,63 @@
 #include "io.h"
 #include "book.h"
+#include <iostream>
 
+
+bool isNumeric(std::string const& str)
+{
+    auto it = str.begin();
+    while (it != str.end() && std::isdigit(*it)) {
+        it++;
+    }
+    return !str.empty() && it == str.end();
+}
 
 void Subsubmenu(Book array[], int Size)
 {
+    string inputValue;
     int thirdChoice = 0;
     string secondFileAddress = "";
     int inputinInput = 0;
     do {
         cout << "1 - Сохранить данные в файл" << endl;
         cout << "2 - Вернуться в подменю" << endl;
-        cin >> thirdChoice;
+        while (true)
+        {
+            getline(cin, inputValue);
+            if (!(isNumeric(inputValue)))
+            {
+
+                cout << "Введено не число...Попробуй ещё раз!" << endl;
+                continue;
+            }
+            else
+            {
+                thirdChoice = stoi(inputValue);
+                break;
+            }
+
+        }
         ofstream secondFile;
         switch (thirdChoice) {
         case saveDataOld:
             cout << "1 - Cохранить результат в существующий файл" << endl;
             cout << "2 - Сохранить результат в новый файл" << endl;
-            cin >> inputinInput;
+            while (true)
+            {
+                getline(cin, inputValue);
+                if (!(isNumeric(inputValue)))
+                {
+
+                    cout << "Введено не число...Попробуй ещё раз!" << endl;
+                    continue;
+                }
+                else
+                {
+                    inputinInput = stoi(inputValue);
+                    break;
+                }
+
+            }
             if (inputinInput == 1) {
                 cout << "Название файла:" << endl;
                 cin.get();
@@ -64,8 +105,11 @@ void Subsubmenu(Book array[], int Size)
         }
     } while (thirdChoice != notSaveDate);
 }
+
+
 void Submenu(Book array[], int Size)
 {
+    string inputValue;
     int secondChoice = 0;
     string NameAuthor = "";
     string LastNameAuthor = "";
@@ -80,7 +124,22 @@ void Submenu(Book array[], int Size)
         cout << "2 - Список книг,по издательству." << endl;
         cout << "3 - Список книг,выпущенных после введеного года." << endl;
         cout << "4 - Переход к начальному меню." << endl;
-        cin >> secondChoice;
+        while (true)
+        {
+            getline(cin, inputValue);
+            if (!(isNumeric(inputValue)))
+            {
+
+                cout << "Введено не число...Попробуй ещё раз!" << endl;
+                continue;
+            }
+            else
+            {
+                secondChoice = stoi(inputValue);
+                break;
+            }
+
+        }
         switch (secondChoice) {
         case listOfBooksByAuthor:
             resultSize = 0;
@@ -132,7 +191,22 @@ void Submenu(Book array[], int Size)
         case listOfBooksByYearOfIssue:
             resultSize = 0;
             cout << "Введите год после которого были изданы книги" << endl;
-            cin >> minYearOfIssue;
+            while (true)
+            {
+                getline(cin, inputValue);
+                if (!(isNumeric(inputValue)))
+                {
+
+                    cout << "Введено не число...Попробуй ещё раз!" << endl;
+                    continue;
+                }
+                else
+                {
+                    minYearOfIssue = stoi(inputValue);
+                    break;
+                }
+
+            }
             for (int i = 0; i < Size; i++) {
                 if (array[i].getYear() >= minYearOfIssue) {
                     array[i].getData();
