@@ -226,7 +226,8 @@ int main() {
                 cout << "ƒанные будут использованны без сохранени€..." << endl;
             }
 
-          
+            cin.clear();
+            cin.ignore();
             Submenu(array, Size);
             delete[] array;
             array = nullptr;
